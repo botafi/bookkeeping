@@ -1,0 +1,68 @@
+﻿@model Bookkeeping.Models.Invoice
+@using Newtonsoft.Json
+@{
+    ViewData["Title"] = "Upravit fakturu";
+}
+<hr />
+<form asp-action="Edit">
+    <div class="row">
+        <div class="col-md-4">
+            <input type="hidden" asp-for="InvoiceId" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ContactId" class="control-label"></label>
+                <select asp-for="ContactId" class="form-control" asp-items="ViewBag.ContactId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InvoiceType" class="control-label"></label>
+                <select asp-for="InvoiceType" class="form-control" asp-items="Invoice.InvoiceTypeItems"></select>
+                <span asp-validation-for="InvoiceType" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="DueTime" class="control-label"></label>
+                <input asp-for="DueTime" class="form-control" />
+                <span asp-validation-for="DueTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateOfIssue" class="control-label"></label>
+                <input asp-for="DateOfIssue" class="form-control" />
+                <span asp-validation-for="DateOfIssue" class="text-danger"></span>
+            </div>
+        </div>
+
+    </div>
+    <div class="row"><div id="invoiceReactRoot" class="col-lg-10 p-0 pt-2 pb-4"></div></div>
+    <div class="row"><input type="submit" value="Uložit fakturu" class="btn btn-raised btn-primary" /></div>
+</form>
+<div class="row">
+    <a asp-action="Index">Zpět na seznam faktur</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @if (Model != null && Model.InvoiceItems != null && Model.InvoiceItems.Count() != 0)
+    {
+        <script>
+            window.invoiceItems = @Html.Raw(JsonConvert.SerializeObject(Model.InvoiceItems, Formatting.None, new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.None }));
+        </script>
+    }
+    else
+    {
+        <script>
+            window.invoiceItems = [{
+                Amount: null,
+                Title: '',
+                Price: null,
+                Unit: ''
+            }];
+        </script>
+    }
+    <script src="~/invoice/build/static/js/main.js"></script>
+}

@@ -1,0 +1,18 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Bookkeeping.Models
+@inject SignInManager<ApplicationUser> SignInManager
+@{
+    ViewData["Title"] = "";
+}
+@{await Html.RenderPartialAsync("_SumPartial");}
+
+
+@if (!SignInManager.IsSignedIn(User))
+{
+    <div class="row justify-content-center">
+        <p class="col-md-4 text-center">Aplikace na jednoduché vedení účetnictví</p>
+    </div>
+    <div class="row justify-content-center">
+        <a asp-controller="Account" asp-action="Register" role="button" class="btn btn-outline-success btn-lg">Zaregistrovat se</a>
+    </div>
+}

@@ -1,0 +1,48 @@
+﻿@model Bookkeeping.Models.Invoice
+
+@{
+    ViewData["Title"] = "Vymazat fakturu";
+}
+<h3>OPravdu chcete smazat fakturu?</h3>
+<div>
+    <h4>Invoice</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DueTime)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DueTime)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DateOfIssue)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DateOfIssue)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.InvoiceType)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.InvoiceType)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Contact)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Contact.Name)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="InvoiceId" />
+        <input type="submit" value="Smazat fakturu" class="btn btn-default" /> |
+        <a asp-action="Index">Zpět na seznam faktur</a>
+    </form>
+</div>

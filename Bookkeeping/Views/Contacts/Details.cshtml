@@ -1,0 +1,46 @@
+﻿@model Bookkeeping.Models.Contact
+
+@{
+    ViewData["Title"] = "Detail kontaktu";
+}
+
+<div>
+    <h4>Contact</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Type)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => Contact.TypeItems.Find(i => i.Value == model.Type.ToString()).Text)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ICO)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ICO)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DIC)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DIC)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.ContactId">Upravit kontakt</a> |
+    <a asp-action="Index">Zpět na seznam kontaktů</a>
+</div>

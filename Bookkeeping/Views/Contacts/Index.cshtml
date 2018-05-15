@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Bookkeeping.Models.Contact>
+
+@{
+    ViewData["Title"] = "Kontakty";
+}
+<p>
+    <a asp-action="Create">Vytvořit nový kontakt</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Address)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Type)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ICO)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DIC)
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Contact.TypeItems.Find(i => i.Value == item.Type.ToString()).Text)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ICO)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DIC)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ContactId">Upravit kontakt</a> |
+                <a asp-action="Details" asp-route-id="@item.ContactId">Detail kontaktu</a> |
+                <a asp-action="Delete" asp-route-id="@item.ContactId">Smazat kontakt</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

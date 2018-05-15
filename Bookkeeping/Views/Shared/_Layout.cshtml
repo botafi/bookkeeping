@@ -1,0 +1,85 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Bookkeeping.Models
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Účetnictví - @ViewData["Title"]</title>
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/css/site.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    </environment>
+    <!-- Material Design for Bootstrap fonts and icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/2.3.54/css/materialdesignicons.min.css">
+
+    <!-- Material Design for Bootstrap CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+</head>
+<body class="bg-white">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Účetnictví</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-between" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <li is-active-route asp-controller="Home" asp-action="Index" class="nav-item">
+                        <a class="nav-link" asp-controller="Home" asp-action="Index">Přehled</a>
+                    </li>
+                    <li is-active-route asp-controller="Invoices" asp-action="Index" class="nav-item">
+                        <a class="nav-link" asp-controller="Invoices" asp-action="Index">Faktury</a>
+                    </li>
+                    <li is-active-route asp-controller="Contacts" asp-action="Index" class="nav-item">
+                        <a class="nav-link" asp-controller="Contacts" asp-action="Index">Kontakty</a>
+                    </li>
+                }
+            </ul>
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="form-inline my-2 my-lg-0">
+                    <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Odhlásit se</button>
+                </form>
+            }
+            else
+            {
+                <form asp-area="" asp-controller="Account" asp-action="Login" method="post" id="loginForm" class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" name="Email" type="email" placeholder="Email" aria-label="Email">
+                    <input class="form-control mr-sm-2" name="Password" type="password" placeholder="Heslo" aria-label="Heslo">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Přihlásit</button>
+                </form>
+            }
+        </div>
+    </nav>
+    <div class="container body-content" style="margin-top: 56px;">
+        <h2>@ViewData["Title"]</h2>
+        @RenderBody()
+        <hr class="row" />
+        <footer>
+            <p>&copy; 2018 Účetnictví</p>
+        </footer>
+    </div>
+
+    <environment include="Development">
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
+    <script>$(document).ready(function () { $('body').bootstrapMaterialDesign(); });</script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
